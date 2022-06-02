@@ -62,7 +62,7 @@ def main():
         # learning rate scheduling 
         scheduler.step()
         if(epoch % 10 == 9):
-            torch.save(model.state_dict(), f'./ptfiles/20220602_{epoch}.pt')
+            torch.save(model.state_dict(), f'./ptfiles/20220603_{epoch}.pt')
     
     
 #     print(f"Last Top-1 Accuracy: {last_top1_acc}")
@@ -106,10 +106,10 @@ def train(train_loader, epoch, model, optimizer, criterion):
         # compute ouput 
         output = model(input)
 
-        print(output.shape)
-        print(output)
-        print(target.shape)
-        loss = criterion(torch.nn.Sigmoid(output), target)
+        # print(output.shape)
+        # print(output)
+        # print(target.shape)
+        loss = criterion(output, target)
         _, predicted = output.max(1)
         total += target.size(0)
         
