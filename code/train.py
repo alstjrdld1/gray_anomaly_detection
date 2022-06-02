@@ -106,8 +106,8 @@ def train(train_loader, epoch, model, optimizer, criterion):
         # compute ouput 
         output = model(input)
 
-        print(predicted.shape)
-        print(predicted)
+        print(output.shape)
+        print(output)
         print(target.shape)
         loss = criterion(torch.nn.Sigmoid(output), target)
         _, predicted = output.max(1)
