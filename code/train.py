@@ -106,8 +106,8 @@ def train(train_loader, epoch, model, optimizer, criterion):
         # compute ouput 
         output = model(input)
 
-        loss = criterion(output, target)
         _, predicted = output.max(1)
+        loss = criterion(predicted, target)
         total += target.size(0)
         
         correct += predicted.eq(target).sum().item()
