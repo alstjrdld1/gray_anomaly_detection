@@ -104,6 +104,7 @@ def train(train_loader, epoch, model, optimizer, criterion):
         
         # compute ouput 
         output = model(input)
+        print(output)
 
         loss = criterion(output, target)
         _, predicted = output.max(1)
