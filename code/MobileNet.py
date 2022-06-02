@@ -48,8 +48,8 @@ class MobileNetV1(nn.Module):
 
     def forward(self, x):
         x = self.model(x)
-        x = x.view(-1, 1024)
+        x = nn.Sigmoid(x.view(-1, 1024))
         x = self.fc(x)
-        return nn.Sigmoid(x)
+        return x
 #############################################################################
 #############################################################################
