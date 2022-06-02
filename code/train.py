@@ -35,7 +35,8 @@ def main():
                                momentum=MOMENTUM, weight_decay=WEIGHTDECAY,
                                nesterov=True)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
-    criterion = torch.nn.CrossEntropyLoss()
+    # criterion = torch.nn.CrossEntropyLoss()
+    criterion = torch.nn.BCELoss()
 
     model = model.cuda()
     criterion = criterion.cuda()
@@ -104,9 +105,8 @@ def train(train_loader, epoch, model, optimizer, criterion):
         
         # compute ouput 
         output = model(input)
-        print(output)
 
-        loss = criterion(output, target)
+        loss = criterion(torch.nn.Sigmoid(output), target)
         _, predicted = output.max(1)
         total += target.size(0)
         
