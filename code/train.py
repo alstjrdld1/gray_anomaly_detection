@@ -13,11 +13,6 @@ from UNSWGRAYDATASET import *
 #############################################################################
 ################################ TRAIN CODE #################################
 def main():
-    print("load data.... ")
-    # train_df = pd.read_csv("../UNSW_NB15_training-set.csv", index_col = False).drop('id', axis = 1)
-    # test_df = pd.read_csv("../UNSW_NB15_testing-set.csv", index_col = False).drop('id', axis = 1)
-    print("load data complete!")
-
     print("Making Dataset.... ")
     train_data = UNSWGRAYDATASET()
     print("Making Dataset complete! ")
