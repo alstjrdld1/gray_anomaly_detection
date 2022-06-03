@@ -21,7 +21,7 @@ def main():
     MOMENTUM = 0.9
     BATCHSIZE = 64
     LR = 0.1
-    EPOCHS = 150
+    EPOCHS = 300
 
     train_loader = DataLoader(train_data, batch_size = BATCHSIZE, shuffle=True)
     model = MobileNetV1(ch_in=1, n_classes=2)
