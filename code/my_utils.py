@@ -97,7 +97,7 @@ def just_convert_to_bin(number):
         return res
 
 ####################### GRAY
-def convert_to_gray(number):
+def convert(number):
     '''
     return into list type
     '''
@@ -109,10 +109,10 @@ def convert_to_gray(number):
     else:
         return [number]
 
-def make_gray_row(item, length):
+def make_row(item, length):
     row = []
     for elem in item:
-        tmp = convert_to_gray(elem)
+        tmp = convert(elem)
         for i in tmp:
             row.append(i)
     while (len(row) < length):

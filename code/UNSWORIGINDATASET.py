@@ -2,7 +2,7 @@
 from torch.utils.data import Dataset
 from my_utils import *
 
-class UNSWGRAYDATASET(Dataset):
+class UNSWORIGINDATASET(Dataset):
     def __init__(self):
         Normal_data = pd.read_csv('../Normalized_normal_train.csv', index_col=False)
         Anomaly_data = pd.read_csv('../Normalized_anomal_train.csv', index_col=False)
@@ -26,15 +26,11 @@ class UNSWGRAYDATASET(Dataset):
 
         print("Making gray patches....")
         for i in range(len(normal_rows) - 64):
-            patch = make_gray_patch(normal_rows[i:i+64])
-            patch *= 255/patch.max()
-            self.x_train.append(patch)
+            self.x_train.append(make_gray_patch(normal_rows[i:i+64]))
             self.y_train.append(0)
         
         for i in range(len(anomaly_rows) - 64):
-            patch = make_gray_patch(anomaly_rows[i:i+64])
-            patch *= 255/patch.max()
-            self.x_train.append(patch)
+            self.x_train.append(make_gray_patch(anomaly_rows[i:i+64]))
             self.y_train.append(1)
 
     def __len__(self):
@@ -43,7 +39,7 @@ class UNSWGRAYDATASET(Dataset):
     def __getitem__(self, idx):
         return self.x_train[idx], self.y_train[idx]
 
-class UNSWGRAYDATASETTEST(Dataset):
+class UNSWORIGINDATASETTEST(Dataset):
     def __init__(self):
         Normal_data = pd.read_csv('../Normalized_normal_test.csv', index_col=False)
         Anomaly_data = pd.read_csv('../Normalized_anomal_test.csv', index_col=False)
@@ -67,15 +63,11 @@ class UNSWGRAYDATASETTEST(Dataset):
 
         print("Making gray patches....")
         for i in range(len(normal_rows) - 64):
-            patch = make_gray_patch(normal_rows[i:i+64])
-            patch *= 255/patch.max()
-            self.x_test.append(patch)
+            self.x_test.append(make_gray_patch(normal_rows[i:i+64]))
             self.y_test.append(0)
         
         for i in range(len(anomaly_rows) - 64):
-            patch = make_gray_patch(anomaly_rows[i:i+64])
-            patch *= 255/patch.max()
-            self.x_test.append(patch)
+            self.x_test.append(make_gray_patch(anomaly_rows[i:i+64]))
             self.y_test.append(1)
   
     def __len__(self):

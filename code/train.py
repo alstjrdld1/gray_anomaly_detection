@@ -6,33 +6,20 @@ import torch.nn as nn
 
 from torch.utils.data import Dataset, DataLoader
 
-
 from MobileNet import *
+from UNSWBINARYDATASET import *
 from UNSWGRAYDATASET import *
+from UNSWORIGINDATASET import *
+
+WEIGHTDECAY = 1e-4
+MOMENTUM = 0.9
+BATCHSIZE = 64
+LR = 0.1
+EPOCHS = 300
 
 #############################################################################
 ################################ TRAIN CODE #################################
-def main():
-    print("Making Dataset.... ")
-    train_data = UNSWGRAYDATASET()
-    print("Making Dataset complete! ")
-
-    WEIGHTDECAY = 1e-4
-    MOMENTUM = 0.9
-    BATCHSIZE = 64
-    LR = 0.1
-    EPOCHS = 300
-
-    train_loader = DataLoader(train_data, batch_size = BATCHSIZE, shuffle=True)
-    model = MobileNetV1(ch_in=1, n_classes=2)
-
-    optimizer = torch.optim.SGD(model.parameters(), lr = LR,
-                               momentum=MOMENTUM, weight_decay=WEIGHTDECAY,
-                               nesterov=True)
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
-    criterion = torch.nn.CrossEntropyLoss()
-    # criterion = torch.nn.BCELoss()
-
+def main(model, train_loader, optimizer, criterion, save_name):
     model = model.cuda()
     criterion = criterion.cuda()
     
@@ -41,7 +28,7 @@ def main():
     print(f"Number of parameters: {pytorch_total_params}")
     
     last_top1_acc = 0
-    
+    avg_loss_list = []
     for epoch in range(EPOCHS):
         print("\n----- epoch: {}, lr: {} -----".format(
         epoch, optimizer.param_groups[0]["lr"]))
@@ -49,20 +36,20 @@ def main():
         # train for one epoch 
         start_time = time.time()
 #         last_top1_acc = train(train_loader, epoch, model, optimizer, criterion)
-        train(train_loader, epoch, model, optimizer, criterion)
+        avg_loss = train(train_loader, epoch, model, optimizer, criterion)
+        avg_loss_list.append(avg_loss)
+
         elapsed_time = time.time() - start_time 
         print('==> {:.2f} seconds to  train this epoch \n'.format(
                 elapsed_time))
         
         # learning rate scheduling 
-        scheduler.step()
         if(epoch % 10 == 9):
-            torch.save(model.state_dict(), f'./ptfiles/20220603_{epoch}.pt')
-    
-    
-#     print(f"Last Top-1 Accuracy: {last_top1_acc}")
-#     print(f"Number of parameters: {pytorch_total_params}")
-    
+            torch.save(model.state_dict(), f'./ptfiles/{save_name}_{epoch}.pt')
+
+    avg_loss_list = np.array(avg_loss_list)
+    np.save(f'./{save_name}_loss', avg_loss_list)
+
 def train(train_loader, epoch, model, optimizer, criterion):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
@@ -101,9 +88,6 @@ def train(train_loader, epoch, model, optimizer, criterion):
         # compute ouput 
         output = model(input)
 
-        # print(output.shape)
-        # print(output)
-        # print(target.shape)
         loss = criterion(output, target)
         _, predicted = output.max(1)
         total += target.size(0)
@@ -129,9 +113,53 @@ def train(train_loader, epoch, model, optimizer, criterion):
                        100. * i / len(train_loader), loss.item(), 100. * correct / total))
         batch_loss.append(loss.item())
         loss_avg = sum(batch_loss) / len(batch_loss)
+    return loss_avg
 #############################################################################
 #############################################################################
 
 if __name__ == "__main__":
-    main()
+    print("Making Dataset.... ")
+    binary_data = UNSWBINARYDATASET()
+    print("Binary file end..")
+    gray_data = UNSWGRAYDATASET()
+    print("Gray file end..")
+    origin_data = UNSWORIGINDATASET()
+    print("Original file end..")
+    print("Making Dataset complete! ")
 
+    print("Making Data Loaders")
+    binary_loader = DataLoader(binary_data, batch_size = BATCHSIZE, shuffle=True)
+    print("Binary data on")
+
+    gray_loader = DataLoader(gray_data, batch_size = BATCHSIZE, shuffle=True)
+    print("Gray data on")
+    origin_loader = DataLoader(origin_data, batch_size = BATCHSIZE, shuffle=True)
+    print("Origin data on")
+
+    model1 = MobileNetV1(ch_in=1, n_classes=2)
+    model2 = MobileNetV1(ch_in=1, n_classes=2)
+    model3 = MobileNetV1(ch_in=1, n_classes=2)
+
+    optimizer1 = torch.optim.SGD(model1.parameters(), lr = LR,
+                               momentum=MOMENTUM, weight_decay=WEIGHTDECAY,
+                               nesterov=True)
+    optimizer2 = torch.optim.SGD(model2.parameters(), lr = LR,
+                            momentum=MOMENTUM, weight_decay=WEIGHTDECAY,
+                            nesterov=True)
+    optimizer3 = torch.optim.SGD(model3.parameters(), lr = LR,
+                            momentum=MOMENTUM, weight_decay=WEIGHTDECAY,
+                            nesterov=True)
+
+    criterion = torch.nn.CrossEntropyLoss()
+
+    print("Binary Model training start")
+    main(model=model1, train_loader=binary_loader, optimizer=optimizer1, criterion=criterion, save_name="binarytraining")
+    print("MobileNet with BINARYDATASET CLEAR!")
+
+    print("gray Model training start")
+    main(model=model2, train_loader=gray_loader, optimizer=optimizer2, criterion=criterion, save_name="graytraining")
+    print("MobileNet with GRAYDATASET CLEAR!")
+
+    print("Origin Model training start")
+    main(model=model3, train_loader=origin_loader, optimizer=optimizer3, criterion=criterion, save_name="origintraining")
+    print("MobileNet with ORIGINDATASET CLEAR!")
