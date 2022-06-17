@@ -4,11 +4,17 @@ from my_utils import *
 
 class UNSWORIGINDATASET(Dataset):
     def __init__(self):
-        Normal_data = pd.read_csv('../Normalized_normal_train.csv', index_col=False)
-        Anomaly_data = pd.read_csv('../Normalized_anomal_train.csv', index_col=False)
+        # Normal_data = pd.read_csv('../Normalized_normal_train.csv', index_col=False)
+        # Anomaly_data = pd.read_csv('../Normalized_anomal_train.csv', index_col=False)
         
-        normal_packets = Normal_data.values
-        anomaly_packets = Anomaly_data.values
+        Normal_data = pd.read_csv('../UNSW_NB15_NORMAL.csv', index_col=False)
+        Anomaly_data = pd.read_csv('../UNSW_NB15_ANOMALY.csv', index_col=False)
+        
+        normal_packets = Normal_data.drop(['attack_cat', 'label'], axis=1).values
+        anomaly_packets = Anomaly_data.drop(['attack_cat', 'label'], axis=1).values
+
+        # normal_packets = Normal_data.values
+        # anomaly_packets = Anomaly_data.values
 
         # Make normal patch and anomaly patch
         print("Making gray rows....")
