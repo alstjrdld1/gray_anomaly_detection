@@ -47,8 +47,10 @@ class UNSWORIGINDATASET(Dataset):
 
 class UNSWORIGINDATASETTEST(Dataset):
     def __init__(self):
-        Normal_data = pd.read_csv('../Normalized_normal_test.csv', index_col=False)
-        Anomaly_data = pd.read_csv('../Normalized_anomal_test.csv', index_col=False)
+        # Normal_data = pd.read_csv('../Normalized_normal_test.csv', index_col=False)
+        # Anomaly_data = pd.read_csv('../Normalized_anomal_test.csv', index_col=False)
+        Normal_data = pd.read_csv('../UNSW_NB15_TEST_NORMAL.csv', index_col=False)
+        Anomaly_data = pd.read_csv('../UNSW_NB15_TEST_ANOMALY.csv', index_col=False)
         
         normal_packets = Normal_data.values
         anomaly_packets = Anomaly_data.values
