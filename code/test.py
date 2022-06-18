@@ -58,7 +58,7 @@ def test(model, test_loader, pt_file, data_len):
        'Id': Id,
        'Category': Category 
     }
-    
+
     df = pd.DataFrame(samples, columns=['Id', 'Category'])
 
     df.to_csv(f'./{pt_file}_result.csv', index=False)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print("Model load Complete")
 
     print("Making Dataset.... ")
-    binary_data = UNSWBINARYDATASETTEST()
+    binary_data = MyDataSet_TEST_donotmix()
     print("Binary file end..")
     gray_data = UNSWGRAYDATASETTEST()
     print("Gray file end..")
