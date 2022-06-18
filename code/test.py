@@ -53,15 +53,13 @@ def test(model, test_loader, pt_file, data_len):
     print(pt_file, " 's Total Acc =>", total_acc)
     print("==========================================")
 
-    Id = list(range(0, data_len))
     samples = {
-       'Id': Id,
        'Category': Category 
     }
 
-    df = pd.DataFrame(samples, columns=['Id', 'Category'])
+    df = pd.DataFrame(samples, columns=['Category'])
 
-    df.to_csv(f'./{pt_file}_result.csv', index=False)
+    df.to_csv(f'./{pt_file}_result.csv')
     return total_acc
 
 if __name__ == "__main__":
