@@ -128,13 +128,13 @@ if __name__ == "__main__":
           ]
 
     for pt_file in binary_pt_list:
-        binary_ACC_List.append(test(model, binary_loader, pt_file))
+        binary_ACC_List.append(test(model, binary_loader, pt_file, len(binary_loader)))
     
     for pt_file in gray_pt_list:
-        gray_ACC_List.append(test(model, gray_loader, pt_file))
+        gray_ACC_List.append(test(model, gray_loader, pt_file, len(gray_loader)))
 
     for pt_file in original_pt_list:
-        origin_ACC_List.append(test(model, origin_loader, pt_file))
+        origin_ACC_List.append(test(model, origin_loader, pt_file, len(origin_loader)))
 
     binary_ACC_List = np.array(binary_ACC_List)
     np.save('./20220618_binary_ACC_List', binary_ACC_List)
