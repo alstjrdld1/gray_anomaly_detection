@@ -48,7 +48,7 @@ def test(model, test_loader, pt_file, data_len):
                 tmp_correct += 1
         
         # print("Current acc => ", tmp_correct / len(output))
-    total_acc = correct/len(data_len)
+    total_acc = correct/data_len
     print("==========================================")
     print(pt_file, " 's Total Acc =>", total_acc)
     print("==========================================")
