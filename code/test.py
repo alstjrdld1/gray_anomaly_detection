@@ -20,7 +20,7 @@ def test(model, test_loader, pt_file, data_len):
     correct = 0
 
     print("Testing.....")
-    Catertory = []
+    Category = []
     for idx, (input, target) in enumerate(test_loader):
         input = np.array(input)
         input = torch.tensor(input, dtype=torch.float32)
