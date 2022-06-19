@@ -1,4 +1,5 @@
 
+from operator import index
 from torch.utils.data import Dataset
 from my_utils import *
 
@@ -147,6 +148,8 @@ class MyDataSet_TEST_donotmix(Dataset):
             self.y_train.append(1)
             self.x_train.append(pf.frame)        
         print("Appending Anomaly Data End! ")
+
+        self.y_train.to_csv('binary_answer.csv', index = False)
 
   
     def __len__(self):
