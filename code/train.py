@@ -120,20 +120,20 @@ if __name__ == "__main__":
     print("Making Dataset.... ")
     # binary_data = UNSWBINARYDATASET()
     # print("Binary file end..")
-    gray_data = UNSWGRAYDATASET()
-    print("Gray file end..")
-    # origin_data = UNSWORIGINDATASET()
-    # print("Original file end..")
+    # gray_data = UNSWGRAYDATASET()
+    # print("Gray file end..")
+    origin_data = UNSWORIGINDATASET()
+    print("Original file end..")
     print("Making Dataset complete! ")
 
     print("Making Data Loaders")
     # binary_loader = DataLoader(binary_data, batch_size = BATCHSIZE, shuffle=True)
     # print("Binary data on")
 
-    gray_loader = DataLoader(gray_data, batch_size = BATCHSIZE, shuffle=True)
-    print("Gray data on")
-    # origin_loader = DataLoader(origin_data, batch_size = BATCHSIZE, shuffle=True)
-    # print("Origin data on")
+    # gray_loader = DataLoader(gray_data, batch_size = BATCHSIZE, shuffle=True)
+    # print("Gray data on")
+    origin_loader = DataLoader(origin_data, batch_size = BATCHSIZE, shuffle=True)
+    print("Origin data on")
 
     model = MobileNetV1(ch_in=1, n_classes=2)
     optimizer = torch.optim.SGD(model.parameters(), lr = LR,
@@ -147,10 +147,10 @@ if __name__ == "__main__":
     # main(model=model1, train_loader=binary_loader, optimizer=optimizer1, criterion=criterion, save_name="binarytraining")
     # print("MobileNet with BINARYDATASET CLEAR!")
 
-    print("gray Model training start")
-    main(model=model, train_loader=gray_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
+    # print("gray Model training start")
+    # main(model=model, train_loader=gray_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
     # print("MobileNet with GRAYDATASET CLEAR!")
 
-    # print("Origin Model training start")
-    # main(model=model, train_loader=origin_loader, optimizer=optimizer, criterion=criterion, save_name="origintraining")
+    print("Origin Model training start")
+    main(model=model, train_loader=origin_loader, optimizer=optimizer, criterion=criterion, save_name="origintraining")
     # print("MobileNet with ORIGINDATASET CLEAR!")
