@@ -31,12 +31,16 @@ class UNSWORIGINDATASET(Dataset):
         self.y_train = []
 
         print("Making original patches....")
-        for i in range(len(normal_rows) - 64):
-            self.x_train.append(make_gray_patch(normal_rows[i:i+64]))
+        for i in range((len(normal_rows)//64) - 1):
+            start = i * 64
+            end = start + 64 
+            self.x_train.append(make_gray_patch(normal_rows[start:end]))
             self.y_train.append(0)
         
-        for i in range(len(anomaly_rows) - 64):
-            self.x_train.append(make_gray_patch(anomaly_rows[i:i+64]))
+        for i in range((len(anomaly_rows)//64) - 1):
+            start = i * 64
+            end = start + 64 
+            self.x_train.append(make_gray_patch(anomaly_rows[start:end]))
             self.y_train.append(1)
 
     def __len__(self):
@@ -70,12 +74,16 @@ class UNSWORIGINDATASETTEST(Dataset):
         self.y_test = []
 
         print("Making original patches....")
-        for i in range(len(normal_rows) - 64):
-            self.x_test.append(make_gray_patch(normal_rows[i:i+64]))
+        for i in range((len(normal_rows)//64) - 1):
+            start = i * 64
+            end = start + 64 
+            self.x_test.append(make_gray_patch(normal_rows[start:end]))
             self.y_test.append(0)
         
-        for i in range(len(anomaly_rows) - 64):
-            self.x_test.append(make_gray_patch(anomaly_rows[i:i+64]))
+        for i in range((len(anomaly_rows)//64) - 1):
+            start = i * 64
+            end = start + 64 
+            self.x_test.append(make_gray_patch(anomaly_rows[start:end]))
             self.y_test.append(1)
   
     def __len__(self):
