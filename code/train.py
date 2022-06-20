@@ -15,7 +15,7 @@ WEIGHTDECAY = 1e-4
 MOMENTUM = 0.9
 BATCHSIZE = 64
 LR = 0.1
-EPOCHS = 300
+EPOCHS = 150
 #############################################################################
 ################################ TRAIN CODE #################################
 def main(model, train_loader, optimizer, criterion, save_name):
@@ -56,7 +56,7 @@ def train(train_loader, epoch, model, optimizer, criterion):
     top1 = AverageMeter('Acc', ':6.2f')
     progress = ProgressMeter(len(train_loader), batch_time,  data_time, losses, 
                              top1, prefix="Epoch: [{}]".format(epoch))
-    
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
     # switch to train mode 
     model.train()
     end = time.time()
