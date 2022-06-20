@@ -70,19 +70,19 @@ if __name__ == "__main__":
     print("Making Dataset.... ")
     # binary_data = MyDataSet_TEST_donotmix()
     # print("Binary file end..")
-    # gray_data = UNSWGRAYDATASETTEST()
-    # print("Gray file end..")
-    origin_data = UNSWORIGINDATASETTEST()
-    print("Original file end..")
+    gray_data = UNSWGRAYDATASETTEST()
+    print("Gray file end..")
+    # origin_data = UNSWORIGINDATASETTEST()
+    # print("Original file end..")
     print("Making Dataset complete! ")
 
     print("Making Data Loaders")
     # binary_loader = DataLoader(binary_data, batch_size = 64, shuffle=False)
     # print("Binary data on")
-    # gray_loader = DataLoader(gray_data, batch_size = 64, shuffle=False)
-    # print("Gray data on")
-    origin_loader = DataLoader(origin_data, batch_size = 64, shuffle=False)
-    print("Origin data on")
+    gray_loader = DataLoader(gray_data, batch_size = 64, shuffle=False)
+    print("Gray data on")
+    # origin_loader = DataLoader(origin_data, batch_size = 64, shuffle=False)
+    # print("Origin data on")
     
     binary_ACC_List = []
     gray_ACC_List = []
@@ -123,19 +123,19 @@ if __name__ == "__main__":
     # for pt_file in binary_pt_list:
     #     binary_ACC_List.append(test(model, binary_loader, pt_file, len(binary_loader)))
     
-    # for pt_file in gray_pt_list:
-    #     gray_ACC_List.append(test(model, gray_loader, pt_file, len(gray_loader)))
+    for pt_file in gray_pt_list:
+        gray_ACC_List.append(test(model, gray_loader, pt_file, len(gray_loader)))
 
-    for pt_file in original_pt_list:
-        origin_ACC_List.append(test(model, origin_loader, pt_file, len(origin_loader)))
+    # for pt_file in original_pt_list:
+    #     origin_ACC_List.append(test(model, origin_loader, pt_file, len(origin_loader)))
 
     # binary_ACC_List = np.array(binary_ACC_List)
     # np.save('./20220618_binary_ACC_List', binary_ACC_List)
 
-    # gray_ACC_List = np.array(gray_ACC_List)
-    # np.save('./20220618_gray_ACC_List', gray_ACC_List)
+    gray_ACC_List = np.array(gray_ACC_List)
+    np.save('./20220618_gray_ACC_List', gray_ACC_List)
 
-    original_pt_list = np.array(original_pt_list)
-    np.save('./20220618_original_pt_list', original_pt_list)
+    # original_pt_list = np.array(original_pt_list)
+    # np.save('./20220618_original_pt_list', original_pt_list)
 
     print("Finished!")

@@ -118,20 +118,20 @@ def train(train_loader, epoch, model, optimizer, criterion):
 
 if __name__ == "__main__":
     print("Making Dataset.... ")
-    binary_data = UNSWBINARYDATASET()
-    print("Binary file end..")
-    # gray_data = UNSWGRAYDATASET()
-    # print("Gray file end..")
+    # binary_data = UNSWBINARYDATASET()
+    # print("Binary file end..")
+    gray_data = UNSWGRAYDATASET()
+    print("Gray file end..")
     # origin_data = UNSWORIGINDATASET()
     # print("Original file end..")
     print("Making Dataset complete! ")
 
     print("Making Data Loaders")
-    binary_loader = DataLoader(binary_data, batch_size = BATCHSIZE, shuffle=True)
-    print("Binary data on")
+    # binary_loader = DataLoader(binary_data, batch_size = BATCHSIZE, shuffle=True)
+    # print("Binary data on")
 
-    # gray_loader = DataLoader(gray_data, batch_size = BATCHSIZE, shuffle=True)
-    # print("Gray data on")
+    gray_loader = DataLoader(gray_data, batch_size = BATCHSIZE, shuffle=True)
+    print("Gray data on")
     # origin_loader = DataLoader(origin_data, batch_size = BATCHSIZE, shuffle=True)
     # print("Origin data on")
 
@@ -143,13 +143,13 @@ if __name__ == "__main__":
 
     criterion = torch.nn.CrossEntropyLoss()
 
-    print("Binary Model training start")
-    main(model=model, train_loader=binary_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining")
-    print("MobileNet with BINARYDATASET CLEAR!")
+    # print("Binary Model training start")
+    # main(model=model, train_loader=binary_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining")
+    # print("MobileNet with BINARYDATASET CLEAR!")
 
-    # print("gray Model training start")
-    # main(model=model, train_loader=gray_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
-    # print("MobileNet with GRAYDATASET CLEAR!")
+    print("gray Model training start")
+    main(model=model, train_loader=gray_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
+    print("MobileNet with GRAYDATASET CLEAR!")
 
     # print("Origin Model training start")
     # main(model=model, train_loader=origin_loader, optimizer=optimizer, criterion=criterion, save_name="origintraining")
