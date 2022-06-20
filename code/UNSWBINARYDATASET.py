@@ -30,11 +30,11 @@ class UNSWBINARYDATASET(Dataset):
         print("Appending Normal Data....")
         for idx, _ in enumerate(normal_patches):
             pf = PacketFeature((224,224))
-            if( (idx + 49) > len(normal_patches)):
-                break
+            # if( (idx + 49) > len(normal_patches)):
+            #     break
                 
             for count in range(49):
-                pf.append(normal_patches[idx+count])
+                pf.append(normal_patches[idx])
             
             self.y_train.append(0)
             self.x_train.append(pf.frame)
@@ -43,11 +43,11 @@ class UNSWBINARYDATASET(Dataset):
         print("Appending Anomaly Data....")
         for idx, _ in enumerate(anomaly_patches):
             pf = PacketFeature((224,224))
-            if( (idx + 49) > len(anomaly_patches)):
-                break
+            # if( (idx + 49) > len(anomaly_patches)):
+            #     break
                 
             for count in range(49):
-                pf.append(anomaly_patches[idx+count])
+                pf.append(anomaly_patches[idx])
             
             self.y_train.append(1)
             self.x_train.append(pf.frame)        
@@ -126,11 +126,11 @@ class MyDataSet_TEST_donotmix(Dataset):
         print("Appending Normal Data....")
         for idx, _ in enumerate(normal_patches):
             pf = PacketFeature((224,224))
-            if( (idx + 49) > len(normal_patches)):
-                break
+            # if( (idx + 49) > len(normal_patches)):
+            #     break
                 
             for count in range(49):
-                pf.append(normal_patches[idx+count])
+                pf.append(normal_patches[idx])
             
             self.y_train.append(0)
             self.x_train.append(pf.frame)
@@ -139,11 +139,11 @@ class MyDataSet_TEST_donotmix(Dataset):
         print("Appending Anomaly Data....")
         for idx, _ in enumerate(anomaly_patches):
             pf = PacketFeature((224,224))
-            if( (idx + 49) > len(anomaly_patches)):
-                break
+            # if( (idx + 49) > len(anomaly_patches)):
+            #     break
                 
             for count in range(49):
-                pf.append(anomaly_patches[idx+count])
+                pf.append(anomaly_patches[idx])
             
             self.y_train.append(1)
             self.x_train.append(pf.frame)        
