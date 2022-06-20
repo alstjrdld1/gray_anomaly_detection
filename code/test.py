@@ -119,12 +119,7 @@ if __name__ == "__main__":
            'origintraining_99.pt',            'origintraining_109.pt',           'origintraining_119.pt',
            'origintraining_129.pt',           'origintraining_139.pt',           'origintraining_149.pt'
           ]
-
-''''origintraining_159.pt',           'origintraining_169.pt',           'origintraining_179.pt',
-           'origintraining_189.pt',           'origintraining_199.pt',           'origintraining_209.pt',
-           'origintraining_219.pt',           'origintraining_229.pt',           'origintraining_239.pt',
-           'origintraining_249.pt',           'origintraining_259.pt',           'origintraining_269.pt',
-           'origintraining_279.pt',           'origintraining_289.pt',           'origintraining_299.pt' '''
+          
     # for pt_file in binary_pt_list:
     #     binary_ACC_List.append(test(model, binary_loader, pt_file, len(binary_loader)))
     
