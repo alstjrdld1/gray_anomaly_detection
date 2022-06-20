@@ -149,7 +149,7 @@ class MyDataSet_TEST_donotmix(Dataset):
             self.x_train.append(pf.frame)        
         print("Appending Anomaly Data End! ")
 
-        self.y_train.to_csv('binary_answer.csv', index = False)
+        #self.y_train.to_csv('binary_answer.csv', index = False)
 
   
     def __len__(self):
