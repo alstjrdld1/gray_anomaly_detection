@@ -35,14 +35,14 @@ class UNSWORIGINDATASET(Dataset):
         for i in range(len(normal_rows)):
             tmp = []
             for j in range(64):
-                tmp.append(normal_rows[j])
+                tmp.append(normal_rows[i])
             self.x_train.append(make_gray_patch(tmp))
             self.y_train.append(0)
         
         for i in range(len(anomaly_rows)):
             tmp = []
             for j in range(64):
-                tmp.append(anomaly_rows[j])
+                tmp.append(anomaly_rows[i])
             self.x_train.append(make_gray_patch(tmp))
             self.y_train.append(1)
 
@@ -80,14 +80,14 @@ class UNSWORIGINDATASETTEST(Dataset):
         for i in range(len(normal_rows)):
             tmp = []
             for j in range(64):
-                tmp.append(normal_rows[j])
+                tmp.append(normal_rows[i])
             self.x_test.append(make_gray_patch(tmp))
             self.y_test.append(0)
         
         for i in range(len(anomaly_rows)):
             tmp = []
             for j in range(64):
-                tmp.append(anomaly_rows[j])
+                tmp.append(anomaly_rows[i])
             self.x_test.append(make_gray_patch(tmp))
             self.y_test.append(1)
   
