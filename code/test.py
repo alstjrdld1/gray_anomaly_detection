@@ -92,24 +92,14 @@ if __name__ == "__main__":
            'binarytraining_39.pt',            'binarytraining_49.pt',            'binarytraining_59.pt',
            'binarytraining_69.pt',            'binarytraining_79.pt',            'binarytraining_89.pt',
            'binarytraining_99.pt',            'binarytraining_109.pt',           'binarytraining_119.pt',
-           'binarytraining_129.pt',           'binarytraining_139.pt',           'binarytraining_149.pt',
-           'binarytraining_159.pt',           'binarytraining_169.pt',           'binarytraining_179.pt',
-           'binarytraining_189.pt',           'binarytraining_199.pt',           'binarytraining_209.pt',
-           'binarytraining_219.pt',           'binarytraining_229.pt',           'binarytraining_239.pt',
-           'binarytraining_249.pt',           'binarytraining_259.pt',           'binarytraining_269.pt',
-           'binarytraining_279.pt',           'binarytraining_289.pt',           'binarytraining_299.pt'
+           'binarytraining_129.pt',           'binarytraining_139.pt',           'binarytraining_149.pt'
           ]
 
     gray_pt_list = ['graytraining_9.pt',           'graytraining_19.pt',           'graytraining_29.pt',
            'graytraining_39.pt',            'graytraining_49.pt',            'graytraining_59.pt',
            'graytraining_69.pt',            'graytraining_79.pt',            'graytraining_89.pt',
            'graytraining_99.pt',            'graytraining_109.pt',           'graytraining_119.pt',
-           'graytraining_129.pt',           'graytraining_139.pt',           'graytraining_149.pt',
-           'graytraining_159.pt',           'graytraining_169.pt',           'graytraining_179.pt',
-           'graytraining_189.pt',           'graytraining_199.pt',           'graytraining_209.pt',
-           'graytraining_219.pt',           'graytraining_229.pt',           'graytraining_239.pt',
-           'graytraining_249.pt',           'graytraining_259.pt',           'graytraining_269.pt',
-           'graytraining_279.pt',           'graytraining_289.pt',           'graytraining_299.pt'
+           'graytraining_129.pt',           'graytraining_139.pt',           'graytraining_149.pt'
           ]
 
     original_pt_list = [
@@ -119,9 +109,9 @@ if __name__ == "__main__":
            'origintraining_99.pt',            'origintraining_109.pt',           'origintraining_119.pt',
            'origintraining_129.pt',           'origintraining_139.pt',           'origintraining_149.pt'
           ]
-          
-    # for pt_file in binary_pt_list:
-    #     binary_ACC_List.append(test(model, binary_loader, pt_file, len(binary_loader)))
+
+    for pt_file in binary_pt_list:
+        binary_ACC_List.append(test(model, binary_loader, pt_file, len(binary_loader)))
     
     for pt_file in gray_pt_list:
         gray_ACC_List.append(test(model, gray_loader, pt_file, len(gray_loader)))
@@ -129,8 +119,8 @@ if __name__ == "__main__":
     # for pt_file in original_pt_list:
     #     origin_ACC_List.append(test(model, origin_loader, pt_file, len(origin_loader)))
 
-    # binary_ACC_List = np.array(binary_ACC_List)
-    # np.save('./20220618_binary_ACC_List', binary_ACC_List)
+    binary_ACC_List = np.array(binary_ACC_List)
+    np.save('./20220618_binary_ACC_List', binary_ACC_List)
 
     gray_ACC_List = np.array(gray_ACC_List)
     np.save('./20220618_gray_ACC_List', gray_ACC_List)
