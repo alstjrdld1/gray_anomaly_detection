@@ -35,10 +35,10 @@ def main(model, train_loader, optimizer, criterion, save_name):
         # train for one epoch 
         start_time = time.time()
 #         last_top1_acc = train(train_loader, epoch, model, optimizer, criterion)
-        # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
+        scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
         avg_loss = train(train_loader, epoch, model, optimizer, criterion)
         avg_loss_list.append(avg_loss)
-        # scheduler.step()
+        scheduler.step()
         elapsed_time = time.time() - start_time 
         print('==> {:.2f} seconds to  train this epoch \n'.format(
                 elapsed_time))
@@ -75,7 +75,7 @@ def train(train_loader, epoch, model, optimizer, criterion):
         target = np.array(target)
                 
         input = torch.tensor(input, dtype=torch.float32)
-        target = torch.tensor(target)
+        target = torch.tensor(target, dtype=torch.float32)
 
         input = input.unsqueeze(1)
                 
