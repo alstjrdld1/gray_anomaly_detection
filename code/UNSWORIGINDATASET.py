@@ -86,8 +86,7 @@ class UNSWORIGINDATASETTEST(Dataset):
             if( (idx + 64) > len(normal_rows)):
                 break
                 
-            for count in range(64):
-                self.x_test.append(make_gray_patch(normal_rows[idx: idx+count]))
+            self.x_test.append(make_gray_patch(normal_rows[idx: idx+64]))
             
             self.y_test.append(0)
 
@@ -96,8 +95,7 @@ class UNSWORIGINDATASETTEST(Dataset):
             if( (idx + 64) > len(anomaly_rows)):
                 break
                 
-            for count in range(64):
-                self.x_test.append(make_gray_patch(anomaly_rows[idx: idx+count]))
+            self.x_test.append(make_gray_patch(anomaly_rows[idx: idx+64]))
             
             self.y_test.append(1)
   
