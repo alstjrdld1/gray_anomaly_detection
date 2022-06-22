@@ -3,7 +3,6 @@ from operator import index
 from torch.utils.data import Dataset
 from my_utils import *
 
-
 #############################################################################
 ######################### Dataset Preprocessing #############################
 class UNSWBINARYDATASET(Dataset):

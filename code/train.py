@@ -118,12 +118,13 @@ def train(train_loader, epoch, model, optimizer, criterion):
 
 if __name__ == "__main__":
     print("Making Dataset.... ")
-    binary_data = UNSWBINARYDATASET()
+    # train_data = UNSWBINARYDATASET()
+    train_data = UNSWORIGINDATASET()
     print("Binary file end..")
     print("Making Dataset complete! ")
 
     print("Making Data Loaders")
-    binary_loader = DataLoader(binary_data, batch_size = BATCHSIZE, shuffle=True)
+    train_loader = DataLoader(train_data, batch_size = BATCHSIZE, shuffle=True)
     print("Binary data on")
 
     model = MobileNetV1(ch_in=1, n_classes=2)
@@ -135,5 +136,5 @@ if __name__ == "__main__":
     criterion = torch.nn.CrossEntropyLoss()
 
     print("Binary Model training start")
-    main(model=model, train_loader=binary_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining")
+    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining")
     print("MobileNet with BINARYDATASET CLEAR!")
