@@ -31,21 +31,23 @@ class UNSWGRAYDATASET(Dataset):
         self.y_train = []
 
         print("Making gray patches....")
-        for i in range(len(normal_rows) - 64):
-            tmp = []
-            for j in range(64):
-                tmp.append(normal_rows[i])
-            patch = make_gray_patch(tmp)
+        for idx, _ in enumerate(normal_rows):
+            if( (idx + 64) > len(normal_rows)):
+                break
+            
+            patch = make_gray_patch(normal_rows[idx: idx+64])            
             patch *= 255/patch.max()
             self.x_train.append(patch)
             self.y_train.append(0)
         
-        for i in range(len(anomaly_rows) - 64):
-            tmp = []
-            for j in range(64):
-                tmp.append(anomaly_rows[i])
-            patch = make_gray_patch(tmp)
+        print("Making Gray Anomaly patches....")
+        for idx, _ in enumerate(anomaly_rows):
+            if( (idx + 64) > len(anomaly_rows)):
+                break
+                
+            patch = make_gray_patch(anomaly_rows[idx: idx+64])
             patch *= 255/patch.max()
+
             self.x_train.append(patch)
             self.y_train.append(1)
 
@@ -78,21 +80,23 @@ class UNSWGRAYDATASETTEST(Dataset):
         self.y_test = []
 
         print("Making gray patches....")
-        for i in range(len(normal_rows)):
-            tmp = []
-            for j in range(64):
-                tmp.append(normal_rows[i])
-            patch = make_gray_patch(tmp)
+        for idx, _ in enumerate(normal_rows):
+            if( (idx + 64) > len(normal_rows)):
+                break
+            
+            patch = make_gray_patch(normal_rows[idx: idx+64])            
             patch *= 255/patch.max()
             self.x_test.append(patch)
             self.y_test.append(0)
         
-        for i in range(len(anomaly_rows)):
-            tmp = []
-            for j in range(64):
-                tmp.append(anomaly_rows[i])
-            patch = make_gray_patch(tmp)
+        print("Making Gray Anomaly patches....")
+        for idx, _ in enumerate(anomaly_rows):
+            if( (idx + 64) > len(anomaly_rows)):
+                break
+                
+            patch = make_gray_patch(anomaly_rows[idx: idx+64])
             patch *= 255/patch.max()
+
             self.x_test.append(patch)
             self.y_test.append(1)
   
