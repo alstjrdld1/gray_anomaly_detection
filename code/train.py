@@ -129,7 +129,8 @@ def train(train_loader, epoch, model, optimizer, criterion):
 if __name__ == "__main__":
     print("Making Dataset.... ")
     # train_data = UNSWBINARYDATASET()
-    train_data = UNSWORIGINDATASET()
+    # train_data = UNSWORIGINDATASET()
+    train_data = UNSWGRAYDATASET()
     print("Binary file end..")
     print("Making Dataset complete! ")
 
@@ -146,5 +147,5 @@ if __name__ == "__main__":
     criterion = torch.nn.CrossEntropyLoss()
 
     print("Binary Model training start")
-    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="originaltraining")
+    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
     print("MobileNet with BINARYDATASET CLEAR!")
