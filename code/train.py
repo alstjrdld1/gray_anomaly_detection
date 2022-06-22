@@ -28,6 +28,7 @@ def main(model, train_loader, optimizer, criterion, save_name):
     
     last_top1_acc = 0
     avg_loss_list = []
+    acc_list = []
     for epoch in range(EPOCHS):
         print("\n----- epoch: {}, lr: {} -----".format(
         epoch, optimizer.param_groups[0]["lr"]))
@@ -36,8 +37,11 @@ def main(model, train_loader, optimizer, criterion, save_name):
         start_time = time.time()
 #         last_top1_acc = train(train_loader, epoch, model, optimizer, criterion)
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [75,125], gamma=0.1)
-        avg_loss = train(train_loader, epoch, model, optimizer, criterion)
+        avg_loss, avg_acc = train(train_loader, epoch, model, optimizer, criterion)
+        
         avg_loss_list.append(avg_loss)
+        acc_list.append(avg_acc)
+
         scheduler.step()
         elapsed_time = time.time() - start_time 
         print('==> {:.2f} seconds to  train this epoch \n'.format(
@@ -49,6 +53,9 @@ def main(model, train_loader, optimizer, criterion, save_name):
 
     avg_loss_list = np.array(avg_loss_list)
     np.save(f'./{save_name}_loss', avg_loss_list)
+    acc_list = np.array(acc_list)
+    np.save(f'./{save_name}_acc', acc_list)
+
 
 def train(train_loader, epoch, model, optimizer, criterion):
     batch_time = AverageMeter('Time', ':6.3f')
@@ -62,6 +69,7 @@ def train(train_loader, epoch, model, optimizer, criterion):
     end = time.time()
     
     batch_loss = []
+    trainAcc = []
     total = 0 
     correct = 0
     best_acc = 0
@@ -105,14 +113,16 @@ def train(train_loader, epoch, model, optimizer, criterion):
         # measure elapsed time 
         batch_time.update(time.time() - end)
         end = time.time()
-        
         if i % PRINTFREQ == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tAcc: {:.6f}'.format(
                 epoch, i * len(input), len(train_loader.dataset, ),
                        100. * i / len(train_loader), loss.item(), 100. * correct / total))
         batch_loss.append(loss.item())
-        loss_avg = sum(batch_loss) / len(batch_loss)
-    return loss_avg
+
+        trainAcc.append(100. * correct / total)
+    loss_avg = sum(batch_loss) / len(batch_loss)
+    acc_avg = sum(trainAcc) / len(trainAcc)
+    return loss_avg, acc_avg
 #############################################################################
 #############################################################################
 
@@ -136,5 +146,5 @@ if __name__ == "__main__":
     criterion = torch.nn.CrossEntropyLoss()
 
     print("Binary Model training start")
-    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining")
+    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="originaltraining")
     print("MobileNet with BINARYDATASET CLEAR!")
