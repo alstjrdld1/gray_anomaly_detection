@@ -5,6 +5,7 @@ import torch.nn as nn
 from MobileNet import *
 from UNSWBINARYDATASET import *
 from UNSWORIGINDATASET import *
+from UNSWGRAYDATASET   import *
 
 from torch.utils.data import DataLoader
 
@@ -22,7 +23,8 @@ if __name__ == "__main__":
     print("loading test_data")
     # test_data = MyDataSet_TEST()
     # test_data = UNSWBINARYDATASETTEST()
-    test_data = UNSWORIGINDATASETTEST()
+    # test_data = UNSWORIGINDATASETTEST()
+    test_data = UNSWGRAYDATASETTEST()
     print("loading test_data complete")
 
     test_loader = DataLoader(test_data, batch_size = 64, shuffle=False)
