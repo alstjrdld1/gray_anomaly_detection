@@ -68,33 +68,33 @@ if __name__ == "__main__":
 
     print("loading test_data")
     # test_data = MyDataSet_TEST()
-    test_data = UNSWBINARYDATASETTEST()
+    # test_data = UNSWBINARYDATASETTEST()
     # test_data = UNSWORIGINDATASETTEST()
-    # test_data = UNSWGRAYDATASETTEST()
+    test_data = UNSWGRAYDATASETTEST()
     print("loading test_data complete")
 
     test_loader = DataLoader(test_data, batch_size = 64, shuffle=False)
     
-    pt_files = [
-        'binarytraining_9.pt',  'binarytraining_19.pt',
-        'binarytraining_29.pt', 'binarytraining_39.pt',
-        'binarytraining_49.pt', 'binarytraining_59.pt',
-        'binarytraining_69.pt', 'binarytraining_79.pt',
-        'binarytraining_89.pt', 'binarytraining_99.pt',
-        'binarytraining_109.pt','binarytraining_119.pt',
-        'binarytraining_129.pt','binarytraining_139.pt',
-        'binarytraining_149.pt'
-    ]
     # pt_files = [
-    #     'graytraining_9.pt',    'graytraining_19.pt',
-    #     'graytraining_29.pt',   'graytraining_39.pt',
-    #     'graytraining_49.pt',   'graytraining_59.pt',
-    #     'graytraining_69.pt',   'graytraining_79.pt',
-    #     'graytraining_89.pt',   'graytraining_99.pt',
-    #     'graytraining_109.pt',  'graytraining_119.pt',
-    #     'graytraining_129.pt',  'graytraining_139.pt',
-    #     'graytraining_149.pt'
+    #     'binarytraining_9.pt',  'binarytraining_19.pt',
+    #     'binarytraining_29.pt', 'binarytraining_39.pt',
+    #     'binarytraining_49.pt', 'binarytraining_59.pt',
+    #     'binarytraining_69.pt', 'binarytraining_79.pt',
+    #     'binarytraining_89.pt', 'binarytraining_99.pt',
+    #     'binarytraining_109.pt','binarytraining_119.pt',
+    #     'binarytraining_129.pt','binarytraining_139.pt',
+    #     'binarytraining_149.pt'
     # ]
+    pt_files = [
+        'graytraining_9.pt',    'graytraining_19.pt',
+        'graytraining_29.pt',   'graytraining_39.pt',
+        'graytraining_49.pt',   'graytraining_59.pt',
+        'graytraining_69.pt',   'graytraining_79.pt',
+        'graytraining_89.pt',   'graytraining_99.pt',
+        'graytraining_109.pt',  'graytraining_119.pt',
+        'graytraining_129.pt',  'graytraining_139.pt',
+        'graytraining_149.pt'
+    ]
     # pt_files = [
     #     'originaltraining_9.pt',    'originaltraining_19.pt',
     #     'originaltraining_29.pt',   'originaltraining_39.pt',
@@ -110,4 +110,4 @@ if __name__ == "__main__":
         test_acc_list.append(test(model, test_loader, ptfile))
     
     test_acc_list = np.array(test_acc_list)
-    np.save("binary_test_acc_list", test_acc_list)
+    np.save("gray_test_acc_list", test_acc_list)
