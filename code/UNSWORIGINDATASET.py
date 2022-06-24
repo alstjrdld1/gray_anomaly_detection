@@ -96,7 +96,11 @@ class UNSWORIGINDATASETTEST(Dataset):
             self.x_test.append(make_gray_patch(anomaly_rows[idx: idx+64]))
             
             self.y_test.append(1)
-  
+
+        answer = np.array(self.y_test)
+        answer = pd.DataFrame(answer)
+        answer.to_csv('ORIGINANSWER.csv', index=False)
+        
     def __len__(self):
         return len(self.y_test)
     

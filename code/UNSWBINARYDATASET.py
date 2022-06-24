@@ -108,6 +108,10 @@ class UNSWBINARYDATASETTEST(Dataset):
             self.x_train.append(pf.frame)        
         print("Appending Anomaly Data End! ")
 
+        answer = np.array(self.y_train)
+        answer = pd.DataFrame(answer)
+        answer.to_csv('BINARYANSWER.csv', index=False)
+
   
     def __len__(self):
         return len(self.y_train)
