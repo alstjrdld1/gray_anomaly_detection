@@ -46,17 +46,17 @@ def test(model, test_loader, ptfile):
                 correct += 1
                 tmp_correct += 1
         
-        print("Current acc => ", tmp_correct / len(output))
-    acc = correct/len(test_data)
+        # print("Current acc => ", tmp_correct / len(output))
+    # acc = correct/len(test_data)
     print("==========================================")
-    print("Total Acc =>", acc)
+    # print("Total Acc =>", acc)
     print("==========================================")
 
     df = pd.DataFrame(Category, columns=['Category'])
     df.to_csv('./results/'+ptfile+'.csv', index=False)
     print(ptfile, "done!")
 
-    return acc
+    # return acc
 
 class AvalancheDataset(Dataset):
     def __init__(self):
