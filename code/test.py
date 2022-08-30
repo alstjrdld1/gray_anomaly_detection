@@ -61,7 +61,7 @@ def test(model, test_loader, ptfile):
 class AvalancheDataset(Dataset):
     def __init__(self):
         data = pd.read_csv('./abnormals/ACK_Flooding_443.csv', index_col=False)
-        
+        print(data)
         patches = []
         for dat in data:
             patches.append(make_patch(dat, (32, 32)))
