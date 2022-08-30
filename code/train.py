@@ -126,11 +126,41 @@ def train(train_loader, epoch, model, optimizer, criterion):
 #############################################################################
 #############################################################################
 
+class AvalancheDataset(Dataset):
+    def __init__(self):
+        data = pd.read_csv('./abnormals/total.csv', index_col=False)
+        # data = pd.read_csv('./abnormals/UDP_Flooding.csv', index_col=False)
+        data = data.drop(['No.'], axis=1).values
+        patches = []
+        for dat in data:
+            patches.append(make_patch(dat, (32, 32)))
+        
+        self.x_test = []
+        self.y_test = []
+
+        for idx,_ in enumerate(patches):
+            pf = PacketFeature((224, 224))
+            if( (idx + 49) > len(patches)):
+                break
+        
+            for count in range(49):
+                pf.append(patches[idx+count])
+
+            self.y_test.append(1)
+            self.x_test.append(pf.frame)
+    
+    def __len__(self):
+        return len(self.y_test)
+    
+    def __getitem__(self, idx):
+        return self.x_test[idx], self.y_test[idx]
+
 if __name__ == "__main__":
     print("Making Dataset.... ")
     # train_data = UNSWBINARYDATASET()
     # train_data = UNSWORIGINDATASET()
-    train_data = UNSWGRAYDATASET()
+    # train_data = UNSWGRAYDATASET()
+    train_data = AvalancheDataset()
     print("Binary file end..")
     print("Making Dataset complete! ")
 
@@ -147,5 +177,5 @@ if __name__ == "__main__":
     criterion = torch.nn.CrossEntropyLoss()
 
     print("Binary Model training start")
-    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="graytraining")
+    main(model=model, train_loader=train_loader, optimizer=optimizer, criterion=criterion, save_name="binarytraining_0830_avalanche")
     print("MobileNet with BINARYDATASET CLEAR!")
