@@ -79,6 +79,7 @@ class AvalancheDataset(Dataset):
 
             self.y_test.append(1)
             self.x_test.append(pf.frame)
+            print(idx)
     
     def __len__(self):
         return len(self.y_test)
