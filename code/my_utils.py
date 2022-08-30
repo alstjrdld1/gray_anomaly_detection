@@ -134,7 +134,7 @@ def make_patch(item, patch_size):
     total_length = patch_size[0] * patch_size[1]
 
     for elem in item : 
-        patch += just_convert_to_bin(elem)
+        patch += just_convert_to_bin(str(elem))
 
     while(len(patch) < total_length) : # patch사이즈를 일정하게 만드는 거 
         patch+= "0"
