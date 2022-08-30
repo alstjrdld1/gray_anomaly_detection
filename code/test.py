@@ -46,23 +46,22 @@ def test(model, test_loader, ptfile):
                 correct += 1
                 tmp_correct += 1
         
-        # print("Current acc => ", tmp_correct / len(output))
-    # acc = correct/len(test_data)
+        print("Current acc => ", tmp_correct / len(output))
+    acc = correct/len(test_data)
     print("==========================================")
-    # print("Total Acc =>", acc)
+    print("Total Acc =>", acc)
     print("==========================================")
 
     df = pd.DataFrame(Category, columns=['Category'])
     df.to_csv('./results/'+ptfile+'.csv', index=False)
     print(ptfile, "done!")
 
-    # return acc
+    return acc
 
 class AvalancheDataset(Dataset):
     def __init__(self):
         data = pd.read_csv('./abnormals/ACK_Flooding_443.csv', index_col=False)
         data = data.drop(['No.'], axis=1).values
-        print(data)
         patches = []
         for dat in data:
             patches.append(make_patch(dat, (32, 32)))
@@ -80,7 +79,6 @@ class AvalancheDataset(Dataset):
 
             self.y_test.append(1)
             self.x_test.append(pf.frame)
-            print(idx)
     
     def __len__(self):
         return len(self.y_test)
