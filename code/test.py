@@ -8,6 +8,7 @@ from UNSWORIGINDATASET import *
 from UNSWGRAYDATASET import *
 
 from torch.utils.data import DataLoader
+from torch.utils.data import Dataset
 
 def test(model, test_loader, ptfile):
     print("Model weight load")
@@ -57,8 +58,34 @@ def test(model, test_loader, ptfile):
 
     return acc
 
+class AvalancheDataset(Dataset):
+    def __init__(self):
+        data = pd.read_csv('./abnormals/ACK_Flooding_443.csv', index_col=False)
+        
+        patches = []
+        for dat in data:
+            patches.append(make_patch(dat, (32, 32)))
+        
+        self.x_test = []
+        self.y_test = []
 
+        for idx,_ in enumerate(patches):
+            pf = PacketFeature((224, 224))
+            if( (idx + 49) > len(patches)):
+                break
+        
+            for count in range(49):
+                pf.append(patches[idx+count])
 
+            self.y_test.append(1)
+            self.x_test.append(pf.frame)
+    
+    def __len__(self):
+        return len(self.y_test)
+    
+    def __getitem__(self, idx):
+        return self.x_test[idx], self.y_test[idx]
+            
 
 if __name__ == "__main__":
     pt_file = sys.argv[1]
@@ -68,8 +95,8 @@ if __name__ == "__main__":
 
     print("loading test_data")
     # test_data = MyDataSet_TEST()
-    # test_data = UNSWBINARYDATASETTEST()
-    test_data = UNSWORIGINDATASETTEST()
+    test_data = AvalancheDataset()
+    # test_data = UNSWORIGINDATASETTEST()
     # test_data = UNSWGRAYDATASETTEST()
     print("loading test_data complete")
 
@@ -95,19 +122,23 @@ if __name__ == "__main__":
     #     'graytraining_129.pt',  'graytraining_139.pt',
     #     'graytraining_149.pt'
     # ]
-    pt_files = [
-        'originaltraining_9.pt',    'originaltraining_19.pt',
-        'originaltraining_29.pt',   'originaltraining_39.pt',
-        'originaltraining_49.pt',   'originaltraining_59.pt',
-        'originaltraining_69.pt',   'originaltraining_79.pt',
-        'originaltraining_89.pt',   'originaltraining_99.pt',
-        'originaltraining_109.pt',  'originaltraining_119.pt',
-        'originaltraining_129.pt',  'originaltraining_139.pt',
-        'originaltraining_149.pt'
-    ]
+    # pt_files = [
+    #     'originaltraining_9.pt',    'originaltraining_19.pt',
+    #     'originaltraining_29.pt',   'originaltraining_39.pt',
+    #     'originaltraining_49.pt',   'originaltraining_59.pt',
+    #     'originaltraining_69.pt',   'originaltraining_79.pt',
+    #     'originaltraining_89.pt',   'originaltraining_99.pt',
+    #     'originaltraining_109.pt',  'originaltraining_119.pt',
+    #     'originaltraining_129.pt',  'originaltraining_139.pt',
+    #     'originaltraining_149.pt'
+    # ]
     test_acc_list = []
-    for ptfile in pt_files:
-        test_acc_list.append(test(model, test_loader, ptfile))
+    test_acc_list.append(test(model, test_loader, pt_file))
+
+    # for ptfile in pt_files:
+    #     test_acc_list.append(test(model, test_loader, ptfile))
     
     test_acc_list = np.array(test_acc_list)
     np.save("origin_test_acc_list", test_acc_list)
+ 
+
